@@ -18,10 +18,6 @@ for %a in (
 ) do for /f "delims=" %b in ('reg query "HKLM\SYSTEM\CurrentControlSet\Enum" /s /f "%a" ^| findstr "HKEY"') do reg.exe add "%b" /v "%a" /t REG_DWORD /d "0" /f > NUL 2>&1
 
 
-cls & echo "Classic Alt Tab"
-Reg.exe add "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" /v "AltTabSettings" /t REG_DWORD /d "1" /f
-Reg.exe add "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" /v "HoverSelectDesktops" /t REG_DWORD /d "0" /f
-
 cls & echo "Removing Taskview Button"
 Reg.exe add "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowTaskViewButton" /t REG_DWORD /d "0" /f
 
