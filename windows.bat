@@ -1,7 +1,7 @@
 @echo off
 
 cls & echo "Disabling USB Powersavings"
-for %%a in (
+for %a in (
 	EnhancedPowerManagementEnabled
 	AllowIdleIrpInD3
 	EnableSelectiveSuspend
@@ -15,7 +15,7 @@ for %%a in (
 	WdfDirectedPowerTransitionEnable
 	EnableIdlePowerManagement
 	IdleInWorkingState
-) do for /f "delims=" %%b in ('reg query "HKLM\SYSTEM\CurrentControlSet\Enum" /s /f "%%a" ^| findstr "HKEY"') do reg.exe add "%%b" /v "%%a" /t REG_DWORD /d "0" /f > NUL 2>&1
+) do for /f "delims=" %b in ('reg query "HKLM\SYSTEM\CurrentControlSet\Enum" /s /f "%a" ^| findstr "HKEY"') do reg.exe add "%b" /v "%a" /t REG_DWORD /d "0" /f > NUL 2>&1
 
 
 cls & echo "Classic Alt Tab"
@@ -384,7 +384,7 @@ Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\diagnosticshub.standardcolle
 Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\SecurityHealthService" /v "Start" /t REG_DWORD /d "4" /f 
 Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\MicrosoftEdge\Main" /v "AllowPrelaunch" /t REG_DWORD /d "0" /f 
 Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\MicrosoftEdge\TabPreloader" /v "AllowTabPreloading" /t REG_DWORD /d "0" /f 
-
+timeout 5 >nul
 @echo off
 
 cd %%systemroot%%\system32
