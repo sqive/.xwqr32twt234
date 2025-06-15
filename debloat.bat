@@ -126,14 +126,7 @@ Powershell -Command "Get-appxpackage -allusers *Microsoft.549981C3F5F10* | Remov
 timeout /t 5 /nobreak > NUL
 cls
 
-:DisableOneDrive
-cls
-echo Disabling OneDrive
-start /wait "" "%%SYSTEMROOT%%\SYSWOW64\ONEDRIVESETUP.EXE" /UNINSTALL
-rd C:\OneDriveTemp /q /s 
-rd "%%USERPROFILE%%\OneDrive" /q /s 
-rd "%%LOCALAPPDATA%%\Microsoft\OneDrive" /q /s 
-rd "%%PROGRAMDATA%%\Microsoft OneDrive" /q /s 
+
 Reg.exe add "HKCR\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}\ShellFolder" /f /v "Attributes" /t REG_DWORD /d "0" 
 Reg.exe add "HKCR\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}\ShellFolder" /f /v "Attributes" /t REG_DWORD /d "0" 
 Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\OneDrive" /v "DisableFileSync" /t REG_DWORD /d "1" /f 
