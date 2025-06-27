@@ -2,25 +2,14 @@
 
 setlocal enabledelayedexpansion
 
-set "WORKDIR=%TEMP%\nvidia_import"
-if exist "%WORKDIR%" rd /s /q "%WORKDIR%"
-mkdir "%WORKDIR%"
-cd /d "%WORKDIR%"
+if not exist "C:\Aphinity\" (mkdir "C:\Aphinity" >nul 2>&1 )
+if not exist "C:\Aphinity\Resources\" (mkdir "C:\Aphinity\Resources\" >nul 2>&1 )
+curl -g -k -L -# -o "%tmp%\nvidiaProfileInspector.zip" "https://github.com/Orbmu2k/nvidiaProfileInspector/releases/latest/download/nvidiaProfileInspector.zip">nul 2>&1
+powershell -NoProfile Expand-Archive '%tmp%\nvidiaProfileInspector.zip' -DestinationPath 'C:\Aphinity\Resources\'>nul 2>&1
+curl -g -k -L -# -o "C:\Aphinity\Resources\Aphinity.nip" "https://www.dropbox.com/scl/fi/h7lwlx2c0a13gay1rbk2b/hidden.nip?rlkey=cep0ysvk3ynwojnpq3aiw0d95&st=mchsigi6&dl=1" >nul 2>&1
+start "" /D "C:\Aphinity\Resources" nvidiaProfileInspector.exe Aphinity.nip
 
-powershell -Command "Invoke-WebRequest -Uri 'https://www.dropbox.com/scl/fo/qscyiril7h1eih3gr0sli/AOuj051Z8DXFvKGrVg3Wix4?rlkey=eqjzrh30vcby8l95ebdr6dv4m&st=2twj4zqa&dl=1' -OutFile 'nvidia.zip'"
-
-"C:\Program Files\7-Zip\7z.exe" x "nvidia.zip" -aoa >nul
-
-start "" powershell -WindowStyle Hidden -Command ^
-"$wshell = New-Object -ComObject WScript.Shell; for ($i = 0; $i -lt 20; $i++) { Start-Sleep -Milliseconds 500; if ($wshell.AppActivate('NVIDIA Profile Inspector')) { Start-Sleep -Milliseconds 300; $wshell.SendKeys('{ENTER}'); break } }"
-
-start /min "" "%WORKDIR%\nvidiaProfileInspector.exe" "hidden.nip"
-
-timeout /t 2 /nobreak >nul
-
-taskkill /f /im nvidiaProfileInspector.exe >nul 2>&1
-cd /d "%TEMP%"
-rd /s /q "%WORKDIR%"
+rd /s /q "C:\Aphinity"
 
 :: Nvidia Tasks
 echo Disabling Nvidia Tasks...
